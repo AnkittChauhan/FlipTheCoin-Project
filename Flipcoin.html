@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip the coin</title>
+</head>
+<body>
+    
+    <button onclick=" flipTheCoin('Head') ">Head</button>
+    <button onclick=" flipTheCoin('Tail') ">Tail</button>
+    <button onclick=" resetTheScore() ">Reset</button>
+
+    <script>
+
+           
+
+        function flipTheCoin( PlayerMove ){
+            
+            let Score = JSON.parse(localStorage.getItem('Score'))
+                    
+                    if(!Score){
+                       Score = {
+                        Wins : 0,
+                        Losses : 0
+                    }}
+
+            let Coin = '';
+
+           const randomNum = Math.random();
+
+           if( randomNum >= 0 && randomNum < (1 / 2)){
+               Coin = 'Head'
+          }
+
+           else if( randomNum >= (1 / 2) && randomNum < 1){
+                Coin = 'Tail'
+           }
+
+
+           let result = '';
+
+
+           if( PlayerMove === Coin ){
+                  result = 'You win',
+                  Score.Wins+=1;
+           }
+           else {
+                result = 'You Lose',
+                Score.Losses+=1;
+            }
+
+            
+
+           alert(`You Picked ${PlayerMove} , After toss it's ${Coin} , Hence ${result}
+           Wins : ${Score.Wins} , Losses ${Score.Losses}`)
+
+           localStorage.setItem( 'Score' , JSON.stringify(Score));
+
+
+        }
+
+
+        function resetTheScore(){
+
+            localStorage.removeItem('Score')
+
+            alert(`Score reset :- Wins : 0 , Losses : 0 `)
+
+        }
+        
+
+    </script>
+</body>
+</html>
